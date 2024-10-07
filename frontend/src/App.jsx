@@ -1,21 +1,27 @@
+import './App.css'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Register from "./pages/Registeration";
+import Signup from './components/Signup';
+import Login from './components/Login';
+import Land from './components/Land'
 
 function App() {
+  
   return (
-    <div style={{
-      height: "100vh",
-      width: "100vw",
-      backgroundColor: "black"
-    }}>
-      <Router>
-        <Routes>
-          <Route path="/Register" element={<Register />} />
-        </Routes>
-      </Router>
-    </div>
-  );
-}
+   
+    
+<Router>
+ < div style={{width: "100vw",
+                height: "1000px",
+               }}
+            >
+  <Routes>
+    <Route path={"/Signup"} element={<Signup />} />
+    <Route path={"/Login"} element={<Login/>}/>
+    <Route path={"/Land"} element={<Land/>}/>
+  </Routes>
+  </div>
+</Router>
+     
+  )}
 
-export default App;
-
+export default App
