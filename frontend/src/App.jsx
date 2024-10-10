@@ -1,27 +1,23 @@
-import './App.css'
+import './App.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Signup from './components/Signup';
+import Appbar from './components/Appbar';
 import Login from './components/Login';
-import Land from './components/Land'
+import Signup from './components/Signup';
 
 function App() {
-  
   return (
-   
-    
-<Router>
- < div style={{width: "100vw",
-                height: "1000px",
-               }}
-            >
-  <Routes>
-    <Route path={"/Signup"} element={<Signup />} />
-    <Route path={"/Login"} element={<Login/>}/>
-    <Route path={"/Land"} element={<Land/>}/>
-  </Routes>
-  </div>
-</Router>
-     
-  )}
+    <>
+      <Appbar />
+      <Router>
+        <Routes>
+          <Route path="/login" element={<Login />} />
+                   <Route path="/signup" element={<Signup />} />
 
-export default App
+        </Routes>
+      </Router>
+    </>
+  );
+}
+
+export default App;
+
