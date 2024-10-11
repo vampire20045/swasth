@@ -1,7 +1,7 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
-import User from './routes/Cred.js'
+import User from './routes/User.js'
 
 const connect = async () => {
     try {
