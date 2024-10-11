@@ -2,6 +2,8 @@ import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
 import User from './routes/User.js'
+import Ngo from './routes/admin.js'
+import Govt from './routes/Govt.js'
 
 const connect = async () => {
     try {
@@ -16,6 +18,8 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use("/User", User);
+app.use("/Ngo",Ngo);
+app.use("/Govt",Govt);
 
 app.listen(9000, () => {
     console.log("Server is ready on port 9000");

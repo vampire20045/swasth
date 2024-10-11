@@ -1,6 +1,6 @@
 import express from 'express';
 import jwt from 'jsonwebtoken'; 
-import { NgoLogin } from '../db/Ngo.js';
+import { GovtLogin } from '../db/govt.js';
 import { secret } from '../middleware/auth.js'; 
 const router = express.Router();
 
@@ -8,16 +8,15 @@ router.post("/Signup", async (req, res) => {
     const { username, password} = req.body;
 
     try {
-        const existingUser = await NgoLogin.findOne({ username });
+        const existingUser = await GovtLogin.findOne({ username });
         if (existingUser) {
             console.log('User already exists');
             return res.status(400).json({ message: "User already exists" });
         }
 
-        const newUser = new NgoLogin({
+        const newUser = new GovtLogin({
             username,
-            password,
-            email
+            password
           
             
         });
@@ -37,7 +36,7 @@ router.post("/Login", async (req, res) => {
     const { username, password } = req.body;
 
     try {
-        const user = await NgoLogin.findOne({ username, password });
+        const user = await GovtLogin.findOne({ username, password });
         if (user) {
             console.log("User logged in");
 
