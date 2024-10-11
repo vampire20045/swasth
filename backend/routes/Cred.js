@@ -1,36 +1,29 @@
 import express from 'express';
 import jwt from 'jsonwebtoken'; // Make sure to import jwt
-import { User, Family } from '../db/User.js';
+import { User, Family,Login } from '../db/User.js';
 import { secret } from '../middleware/auth.js'; // Ensure secret is properly imported
 
 const router = express.Router();
 
 // Signup Route
 router.post("/Signup", async (req, res) => {
-    const { username, password, name, city, mobile, age, country, adharCard, email, pincode, Total_member,address } = req.body;
+    const { username, password, email} = req.body;
 
     try {
         // Check if user exists
-        const existingUser = await User.findOne({ username });
+        const existingUser = await Login.findOne({ username });
         if (existingUser) {
             console.log('User already exists');
             return res.status(400).json({ message: "User already exists" });
         }
 
         // Create new user object
-        const newUser = new User({
+        const newUser = new Login({
             username,
             password,
-            name,
-            city,
-            mobile,
-            age,
-            country,
-            adharCard,
-            email,
-            pincode,
-            Total_member,
-            address
+            email
+          
+            
         });
 
         // Save the user
@@ -51,7 +44,7 @@ router.post("/Login", async (req, res) => {
 
     try {
         // Find user with matching username and password
-        const user = await User.findOne({ username, password });
+        const user = await Login.findOne({ username, password });
         if (user) {
             console.log("User logged in");
 

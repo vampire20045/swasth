@@ -21,4 +21,5 @@ const auth = async (req, res, next) => {
         return res.status(401).json({ message: "Unauthorized access" });
     }
 };
+export {secret,auth}
 
