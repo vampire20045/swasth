@@ -5,87 +5,84 @@ import avtar from "../assets/avtar.jpg";
 import { useState } from 'react';
 
 function Signup() {
-  const [username,setUsername]=useState('');
-  const [password,setPassword]=useState('');
-  const[email,setemail]=useState('');
-    const [loading, setLoading] = useState(false);
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState('');
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  const login=async () =>{
+
+  const signup = async () => {
     setLoading(true);
-    const url="http://localhost:9000/User/signup";
-    try{
-      const response=await fetch(url,{
-        method:"POST",
-        body: JSON.stringify({ username, password,email }),
+    const url = "http://localhost:9000/User/signup";
+    try {
+      const response = await fetch(url, {
+        method: "POST",
+        body: JSON.stringify({ username, password, email }),
         headers: { "Content-Type": "application/json" },
       });
-      if(!response.ok){
-        console.log("error");
+
+      if (!response.ok) {
+        throw new Error('Signup failed');
       }
-      const data= await response.json();
-      localStorage.setItem("token",data.token);
-      window.location='/';}
-    catch(error){
-     setError("Sign up failed please fill the correct information");
-     console.log(error);
-    }
-    finally{
+
+      const data = await response.json();
+      localStorage.setItem("token", data.token);
+      window.location = '/'; 
+    } catch (error) {
+      setError("Sign up failed. Please provide correct information.");
+      console.log(error);
+    } finally {
       setLoading(false);
     }
+  };
 
-  }
   return (
-    <div className="my-10 mx-80 bg-blue-500/10 backdrop-blur-lg h-[550px] w-[900px] rounded-lg shadow-lg">
+    <div className="my-10 mx-auto bg-blue-500/10 backdrop-blur-lg h-[550px] w-full max-w-[900px] rounded-lg shadow-lg">
       <center>
-<div>
+        <div>
           <Avatar
             alt="User"
-            src={avtar}  
+            src={avtar}
             sx={{ width: 100, height: 100, mt: 10 }}
           />
-          <div className="bg-white/50 backdrop-blur-md h-[400px] w-[600px] mt-7 rounded-3xl shadow-lg"> 
-            <div className="w-[500px] pt-10">
+          <div className="bg-white/50 backdrop-blur-md h-[400px] w-full max-w-[600px] mt-7 rounded-3xl shadow-lg">
+            <div className="w-full max-w-[500px] pt-10 mx-auto">
               <TextField
                 label="Username"
                 variant="outlined"
                 fullWidth
                 type="text"
-                sx={{ mt: 2, boxShadow: 3 }}  
+                sx={{ mt: 2, boxShadow: 3 }}
                 value={username}
-                onChange={(e)=>{
-                  setUsername(e.target.value);
-                }}
+                onChange={(e) => setUsername(e.target.value)}
               />
               <TextField
-                label="EMAIL"
+                label="Email"
                 variant="outlined"
                 fullWidth
                 type="email"
                 sx={{ mt: 2, boxShadow: 3 }}
                 value={email}
-                onChange={(e)=>{
-                  setemail(e.target.value);
-                }}
-               
+                onChange={(e) => setEmail(e.target.value)}
               />
-               <TextField
+              <TextField
                 label="Password"
                 variant="outlined"
                 fullWidth
                 type="password"
                 sx={{ mt: 2, boxShadow: 3 }}
                 value={password}
-                onChange={(e)=>{
-                  setPassword(e.target.value);
-                }}
+                onChange={(e) => setPassword(e.target.value)}
               />
-              <Button variant="contained"
-               fullWidth={true} 
-              sx={{ mt: 2, boxShadow: 3 }}
-              onClick={login}
-              disabled={loading}>
-                               {loading ? "Logging in..." : "LOGIN"}
-
+              {error && <div className="text-red-500 mt-2">{error}</div>}
+              <Button
+                variant="contained"
+                fullWidth
+                sx={{ mt: 2, boxShadow: 3 }}
+                onClick={signup}
+                disabled={loading}
+              >
+                {loading ? "Signing up..." : "SIGN UP"}
               </Button>
             </div>
           </div>

@@ -1,6 +1,6 @@
 import express from 'express';
 import jwt from 'jsonwebtoken'; 
-import { NgoLogin } from '../db/Ngo.js';
+import { NgoLogin,Vedio } from '../db/Ngo.js';
 import { secret } from '../middleware/auth.js'; 
 const router = express.Router();
 
@@ -16,8 +16,7 @@ router.post("/Signup", async (req, res) => {
 
         const newUser = new NgoLogin({
             username,
-            password,
-            email
+            password
           
             
         });
@@ -25,7 +24,7 @@ router.post("/Signup", async (req, res) => {
         await newUser.save();
 
         
-        const token = jwt.sign({ username, role: 'user' }, secret, { expiresIn: '24h' });
+        const token = jwt.sign({ username, role: 'Ngo' }, secret, { expiresIn: '24h' });
         res.status(201).json({ message: "User signed up successfully", token });
     } catch (error) {
         console.log(error);
@@ -41,7 +40,7 @@ router.post("/Login", async (req, res) => {
         if (user) {
             console.log("User logged in");
 
-            const token = jwt.sign({ username, role: 'user' }, secret, { expiresIn: '24h' });
+            const token = jwt.sign({ username, role: 'Ngo' }, secret, { expiresIn: '24h' });
             res.json({ message: "User logged in successfully", token });
         } else {
             res.status(404).json({ message: "User not found" });
@@ -53,4 +52,3 @@ router.post("/Login", async (req, res) => {
 });
 
 export default router;
-        
